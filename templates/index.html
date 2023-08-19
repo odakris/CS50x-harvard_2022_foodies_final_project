@@ -1,0 +1,166 @@
+{% extends "layout.html" %} {% block title %} Index {% endblock %} {% block main
+%}
+
+<body class="main_page">
+  <div class="index">
+    <h1>Hello {{ name }} !</h1>
+    <h2>What should we cook today ?</h2>
+
+    <br /><br />
+
+    <form action="/recipes" method="POST">
+      <!-- What's in your fidge ? -->
+      <input
+        type="text"
+        class="form-control"
+        placeholder="What's in your fridge ? (example : tomato cheese onion)"
+        autocomplete="off"
+        name="query"
+        style="font-weight: 700"
+      />
+
+      <br /><br />
+
+      <!-- Meal Type Accordion -->
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne"
+              aria-expanded="false"
+              aria-controls="flush-collapseOne"
+            >
+              <strong>Meal Type</strong
+              ><span class="ms-1 small text-muted">(optional)</span>
+            </button>
+          </h2>
+          <div
+            id="flush-collapseOne"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush-headingOne"
+          >
+            <div class="accordion-body">
+              <!-- Meal Type  -->
+              {% for meal in meal_type %}
+              <div class="form-check form-check-inline">
+                <input
+                  type="checkbox"
+                  id="{{ meal }}"
+                  name="meal_type"
+                  value="{{ meal }}"
+                />
+                <label class="checklabel" for="{{ meal }}"
+                  >{{ meal_type[meal] }}</label
+                >
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Cuisine Type Accordion -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseTwo"
+              aria-expanded="false"
+              aria-controls="flush-collapseTwo"
+            >
+              <strong>Cuisine Type</strong
+              ><span class="ms-1 small text-muted">(optional)</span>
+            </button>
+          </h2>
+          <div
+            id="flush-collapseTwo"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush-headingTwo"
+          >
+            <div class="accordion-body check-container">
+              <!-- Cuisine Type  -->
+              {% for cuisine in cuisine_type %}
+              <div class="form-check form-check-inline check-item">
+                <input
+                  type="checkbox"
+                  id="{{ cuisine }}"
+                  name="cuisine_type"
+                  value="{{ cuisine }}"
+                />
+                <label class="checklabel" for="{{ cuisine }}"
+                  >{{ cuisine_type[cuisine] }}</label
+                >
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Diet Type Accordion -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingThree">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseThree"
+              aria-expanded="false"
+              aria-controls="flush-collapseThree"
+            >
+              <strong>Diet Type</strong
+              ><span class="ms-1 small text-muted">(optional)</span>
+            </button>
+          </h2>
+          <div
+            id="flush-collapseThree"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush-headingThree"
+          >
+            <div class="accordion-body">
+              <!-- Diet Type  -->
+              {% for diet in diet_type %}
+              <div class="form-check form-check-inline">
+                <input
+                  type="checkbox"
+                  id="{{ diet }}"
+                  name="diet_type"
+                  value="{{ diet }}"
+                />
+                <label class="checklabel" for="{{ diet }}"
+                  >{{ diet_type[diet] }}</label
+                >
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br /><br />
+
+      <!-- Submit Button -->
+      <button class="btn btn-primary" id="search" type="submit">Search</button>
+    </form>
+  </div>
+</body>
+{% endblock %}
+
+<!-- {% block script %}
+<script type="text/javascript">
+
+    var images = new Array();
+
+    function preloadImage() {
+        images = new Image();
+
+        images.src = preloadImage.arguments;
+    }
+
+    preloadImage("pexels-lukas-349608.jpg")
+
+</script>
+{% endblock %} -->

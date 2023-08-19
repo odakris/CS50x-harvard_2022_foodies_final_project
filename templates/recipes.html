@@ -1,0 +1,136 @@
+{% extends "layout.html" %} {% block title %} Recipes {% endblock %} {% block
+main %}
+
+<body class="search">
+  <div class="search_page">
+    <h1 class="page_title">Matching Recipes</h1>
+
+    <div class="row">
+      {% for recipe in recipes if recipe %}
+      <div class="col">
+        <div class="title">
+          <p>{{ recipe['title'] }}</p>
+        </div>
+        <img src="https://spoonacular.com/recipeImages/{{ recipe['image'] }}" />
+        <div class="view">
+          <div>
+            <p>
+              <span style="margin-right: 120px"
+                ><span style="font-size: 20px">&#128340;</span
+                ><strong>{{ recipe['readyInMinutes'] }}mins</strong></span
+              ><span style="text-align: right"
+                ><span style="font-size: 30px">&#128101;</span
+                ><strong>{{ recipe['servings'] }}</strong></span
+              >
+            </p>
+          </div>
+          <form method="post">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#modal{{ recipe['id'] }}"
+              name="modal_step"
+              value="{{ recipe['id'] }}"
+            >
+              More Details
+            </button>
+          </form>
+        </div>
+
+        <!-- Modal -->
+        <div
+          class="modal"
+          id="modal{{ recipe['id'] }}"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  {{ recipe['title'] }}
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="flex-container">
+                  <!-- Ingredients images -->
+                  <div class="flex-item image-ingredient">
+                    {% for image in recipe['ingredient_image']%}
+                    <div class="flex-item1">
+                      <img
+                        class="ingredient_img"
+                        src="https://spoonacular.com/cdn/ingredients_100x100/{{ image }}"
+                        alt="{{ image }}"
+                      />
+                    </div>
+                    {% endfor %}
+                  </div>
+
+                  <!-- Ingredients metrics-->
+                  <div class="flex-item values">
+                    {% for value in recipe['ingredient_metric']%}
+                    <div class="flex-item2">{{ value }}</div>
+                    {% endfor %}
+                  </div>
+
+                  <!-- Steps -->
+                  <div class="steps">
+                    {% for step in recipe['steps'] if step%}
+                    <ul>
+                      <div class="flex-item3">
+                        <li>{{ step }}</li>
+                      </div>
+                    </ul>
+                    {% else %}
+                    <i
+                      >Please visit recipe's source website for more
+                      informations</i
+                    >
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <a href="{{ recipe['sourceUrl'] }}" target="_blank"
+                  ><button type="button" class="btn btn-secondary">
+                    Go to recipe webpage
+                  </button></a
+                >
+                <form action="/save" method="post">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    name="save"
+                    value="{{ recipe['id'] }}"
+                  >
+                    Save This Recipe
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% else %}
+
+      <div class="no_result">
+        <h3>Oups..</h3>
+        <h3>It seems there is no recipes matching your requirements !</h3>
+        <h3><i>Please, try again.</i></h3>
+      </div>
+
+      {% endfor %}
+    </div>
+  </div>
+</body>
+{% endblock %}
