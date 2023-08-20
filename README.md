@@ -45,7 +45,7 @@ pip install flask
 
 ### Step 7
 
-You will need to sing up to [spoonacular.com](https://spoonacular.com/food-api) in order to get an API KEY.
+You will need to sing up to [spoonacular]([https://spoonacular.com/food-api](https://rapidapi.com/spoonacular/api/recipe-food-nutrition/)) in order to get an API KEY.
 Once you get your own key, just fill the api_key variable line 27 of app.py file:
 
 ```
